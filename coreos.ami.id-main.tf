@@ -9,7 +9,16 @@
 
 data external ami
 {
-    program = [ "bash", "${path.module}/coreos-ami-reader.sh", "eu-west-1" ]
+    program = [ "bash", "${path.module}/coreos-ami-reader.sh", "${ data.aws_region.with.name }" ]
+}
+
+
+### ################### ###
+### [[data]] aws_region ###
+### ################### ###
+
+data aws_region with
+{
 }
 
 
@@ -33,11 +42,8 @@ variable in_use_pv
 ### [[local]] attributes for building the CoreOS AMI log. ###
 ### ##################################################### ###
 
-data aws_region with {}
-
 locals
 {
-    region_id = "${ data.aws_region.with.name }"
     city_plus = "${ element( split( "(", data.aws_region.with.description ), 1 ) }"
     city_name = "${ element( split( ")", local.city_plus ), 0 ) }"
     pre_note  = "The CoreOS AMI ID for ${local.city_name} ${ data.aws_region.with.name } is"
