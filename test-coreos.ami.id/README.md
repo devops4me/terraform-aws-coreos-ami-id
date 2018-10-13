@@ -25,18 +25,15 @@ Check before you run the test that
 
 The below test log output was retrieved from a run in the London region.
 
-    data.external.ami: Refreshing state...
-    data.external.ami: Refreshing state...
-    data.external.ami: Refreshing state...
-    data.aws_region.with: Refreshing state...
-    data.aws_region.with: Refreshing state...
-    data.aws_region.with: Refreshing state...
+### No PV AMI in the London Region (eu-west-2)
+
+The last line of the log below demonstrates the missing CoreOS PV AMI from the London (and a handful of other) region/s.
 
     Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 
     Outputs:
 
-    out_coreos_ami_id = ami-099b2d1bdd27b4649
-    out_coreos_ami_log = The CoreOS AMI ID for London eu-west-2 is ami-099b2d1bdd27b4649.
-    out_coreos_hvm_ami_id = ami-099b2d1bdd27b4649
-    out_coreos_pv_ami_id = ami-0d9ae8e150fb07db3
+    out_coreos_ami_id = ami-02de9d47add3bab7c
+    out_coreos_ami_log = The CoreOS AMI ID for London eu-west-2 is ami-02de9d47add3bab7c.
+    out_coreos_hvm_ami_id = ami-02de9d47add3bab7c
+    out_coreos_pv_ami_id =
