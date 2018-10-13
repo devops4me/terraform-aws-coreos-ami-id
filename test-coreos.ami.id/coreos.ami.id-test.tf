@@ -3,47 +3,39 @@
 ### [[test-module]] testing terraform-aws-coreos-ami-id ###
 ### ################################################### ###
 
-module zero-param-test
+module coreos-ami-id-default-test
 {
     source = ".."
 }
 
-/*
-module vpc-1
+module coreos-ami-id-hvm-test
 {
-    source       = "github.com/devops-ip/terraform-aws-vpc-subnets"
-    in_vpc_cidr  = "10.123.0.0/16"
-    in_ecosystem = "${ local.ecosystem_id }"
+    source    = ".."
+    in_use_pv = "false"
 }
 
-module security-group-test-1
+module coreos-ami-id-pv-test
 {
-    source         = ".."
-    in_ingress     = [ "ssh", "http", "https" ]
-    in_vpc_id      = "${ module.vpc-1.out_vpc_id }"
-    in_use_default = "true"
-    in_ecosystem   = "${ local.ecosystem_id }-01"
+    source    = ".."
+    in_use_pv = "true"
 }
 
-module vpc-2
+output out_coreos_ami_log
 {
-    source       = "github.com/devops-ip/terraform-aws-vpc-subnets"
-    in_vpc_cidr  = "10.124.0.0/16"
-    in_ecosystem = "${ local.ecosystem_id }"
+    value = "${ module.coreos-ami-id-default-test.out_ami_log }"
 }
-
-module security-group-test-2
-{
-    source         = ".."
-    in_ingress     = [ "elasticsearch", "ssh", "java" ]
-    in_egress      = [ "all-traffic" ]
-    in_vpc_id      = "${ module.vpc-2.out_vpc_id }"
-    in_use_default = "false"
-    in_ecosystem   = "${ local.ecosystem_id }-02"
-}
-*/
 
 output out_coreos_ami_id
 {
-    value = "${ module.zero-param-test.out_ami_id }"
+    value = "${ module.coreos-ami-id-default-test.out_ami_id }"
+}
+
+output out_coreos_hvm_ami_id
+{
+    value = "${ module.coreos-ami-id-hvm-test.out_ami_id }"
+}
+
+output out_coreos_pv_ami_id
+{
+    value = "${ module.coreos-ami-id-pv-test.out_ami_id }"
 }

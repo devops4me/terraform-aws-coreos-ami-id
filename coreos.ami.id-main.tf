@@ -13,34 +13,35 @@ data external ami
 }
 
 
-####### ############################################# ########
-######## Variables for the Terraform [[enis]] module. ########
-######## ############################################ ########
+######## ########################## ########
+######## Variables for this module. ########
+######## ########################## ########
 
-### ######################## ###
-### [[variable]] in_owner_id ###
-### ######################## ###
+### ###################### ###
+### [[variable]] in_use_pv ###
+### ###################### ###
 
-variable in_owner_id
+variable in_use_pv
 {
-    description = "The id of the requester to filter on also known from the AWS console as attachment owner."
-    default = "amazon-rds"
+    description = "Override default and get ID of paravirtual rather than the HVM CoreOS AMI."
+    default = "false"
 }
 
 
-####### ######################################### ########
-######## Output of the [[net.interfaces]] module. ########
-####### ######################################### ########
 
-### ########################### ###
-### [[output]] out_ip_addresses ###
-### ########################### ###
+### ##################################################### ###
+### [[local]] attributes for building the CoreOS AMI log. ###
+### ##################################################### ###
 
-#### --> output out_ip_addresses
-#### --> {
-#### -->     description = "The IP addresses of active network interfaces within the given VPC and subnets."
-#### -->     value       = "${ split( ",", data.external.eni-ips.result[ "ip_addresses" ] ) }"
-#### --> }
+data aws_region with {}
+
+locals
+{
+    region_id = "${ data.aws_region.with.name }"
+    city_plus = "${ element( split( "(", data.aws_region.with.description ), 1 ) }"
+    city_name = "${ element( split( ")", local.city_plus ), 0 ) }"
+    pre_note  = "The CoreOS AMI ID for ${local.city_name} ${ data.aws_region.with.name } is"
+}
 
 
 ################ ########################################### ########
@@ -54,5 +55,16 @@ variable in_owner_id
 output out_ami_id
 {
     description = "EC2 AMI ID for CoreOS in your AWS region and selected virtualization type."
-    value       = "${ data.external.ami.result[ "hvm" ] }"
+    value       = "${ data.external.ami.result[ var.in_use_pv ? "pv" : "hvm" ] }"
+}
+
+
+### ###################### ###
+### [[output]] out_ami_log ###
+### ###################### ###
+
+output out_ami_log
+{
+    description = "Log string detailing the region city region name and EC2 CoreOS AMI ID."
+    value = "${local.pre_note} ${ data.external.ami.result[ var.in_use_pv ? "pv" : "hvm" ] }."
 }

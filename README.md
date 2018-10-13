@@ -3,7 +3,7 @@
 
 **Hardcoding AMI IDs, account IDs, region codes, subnet cidrs and Route53 zone IDs brings duplication into your Terraform code, makes it brittle and prevents you running it in different regions and accounts.**
 
-Use this module to dynamically retrieve the CoreOS AMI ID for the region you are operating in.
+Use this module to dynamically retrieve the CoreOS AMI ID for your region instead of just hardcoding it in.
 
 
 ## Usage
@@ -28,15 +28,29 @@ Put the above in a file named foo.tf, go to the directory and run it.
 
 ## Input ( HVM vs PV )
 
-The CoreOS AMI for HVM virtualization is the assumed default. HVM (hardware virtual machine) makes use of virtualization extensions in hardware and now performs better than the PV (paravirtual) AMI. **[Read up on Linux HVM / PV virtualization types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html)**.
+The CoreOS AMI for HVM virtualization is the assumed default. HVM (hardware virtual machine) makes use of virtualization extensions in hardware and now performs better than paravirtual (PV) machines.
+
+**[Linux HVM / PV virtualization types - Explained](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html)**.
 
     module coreos_ami_id
     {
         source    = "github.com/devops-ip/terraform-aws-coreos-ami-id"
-	in_use_pv = "true"
+        in_use_pv = "true"
     }
 
-To insist on PV set **in_use_pv** to true **but beware** that some regions do not have an AMI based on PV virtualization.
+To insist on PV set **in_use_pv** to true **but beware** that some regions lack a paravirtual CoreOS image.
+
+### AWS Regions Without a CoreOS ParaVirtual AMI
+
+| Region Name | Region Code |
+|:----------- |:----------- |
+Asia Pacific (Seoul) | ap-northeast-2
+Asia Pacific (Mumbai) | ap-south-1
+Canada (Central) | ca-central-1
+China (Ningxia) | cn-northwest-1
+EU (London) | eu-west-2
+EU (Paris) | eu-west-3
+US East (Ohio) | us-east-2
 
 
 ## Output
@@ -49,10 +63,8 @@ To insist on PV set **in_use_pv** to true **but beware** that some regions do no
 Just double check that
 
  - you have terraform and git intalled (or Terraform Enterprise)
- - your [AWS credentials have been installed](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
- - if PV is chosen a CoreOS AMI exists for the region your infrastructure is in
-
-Currently there is **no CoreOS PV AMI** for ap-northeast-2, ap-south-1, ca-central-1, cn-northwest-1, eu-west-2, eu-west-3 and us-east-2.
+ - your [AWS credentials have been installed](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) in the right place/s
+ - if PV is chosen a CoreOS AMI exists for the region (see above table)
 
 
 ### Contributing
