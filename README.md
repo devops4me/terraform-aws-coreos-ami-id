@@ -10,7 +10,7 @@ Use this module to dynamically retrieve the CoreOS AMI ID for your region instea
 
     module coreos_ami_id
     {
-        source = "github.com/devops-ip/terraform-aws-coreos-ami-id"
+        source = "github.com/devops4me/terraform-aws-coreos-ami-id"
     }
 
 
@@ -34,7 +34,7 @@ The CoreOS AMI for HVM virtualization is the assumed default. HVM (hardware virt
 
     module coreos_ami_id
     {
-        source    = "github.com/devops-ip/terraform-aws-coreos-ami-id"
+        source    = "github.com/devops4me/terraform-aws-coreos-ami-id"
         in_use_pv = "true"
     }
 
@@ -69,7 +69,7 @@ Just double check that
 
 ### Contributing
 
-Bug reports and pull requests are welcome on GitHub at the https://github.com/devops-ip/terraform-aws-vpc-subnets page. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at the https://github.com/devops4me/terraform-aws-vpc-subnets page. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 License
 -------

@@ -5,7 +5,7 @@ You can [run the integration tests](coreos.ami.id-test.tf) that will retrieve re
 
 ## Usage
 
-    $ git clone https://github.com/devops-ip/terraform-aws-coreos-ami-id.git
+    $ git clone https://github.com/devops4me/terraform-aws-coreos-ami-id.git
     $ cd terraform-aws-coreos-ami-id
     $ terraform init .
     $ terraform apply -auto-approve
