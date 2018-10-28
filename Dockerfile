@@ -18,6 +18,7 @@ USER root
 RUN apt-get update && apt-get --assume-yes install -qq -o=Dpkg::Use-Pty=0 \
       curl  \
       git   \
+      jq    \
       tree  \
       unzip
 
