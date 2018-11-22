@@ -69,7 +69,7 @@ Just double check that
 
 ### Contributing
 
-Bug reports and pull requests are welcome on GitHub at the https://github.com/devops4me/terraform-aws-vpc-subnets page. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at the https://github.com/devops4me/terraform-aws-vpc-network page. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 License
 -------
