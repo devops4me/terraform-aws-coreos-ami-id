@@ -7,8 +7,7 @@
 ### [[data]] external ###
 ### ################# ###
 
-data external ami
-{
+data external ami {
     program = [ "bash", "${path.module}/coreos-ami-reader.sh", "${ data.aws_region.with.name }" ]
 }
 
@@ -17,8 +16,7 @@ data external ami
 ### [[data]] aws_region ###
 ### ################### ###
 
-data aws_region with
-{
+data aws_region with {
 }
 
 
@@ -30,8 +28,7 @@ data aws_region with
 ### [[variable]] in_use_pv ###
 ### ###################### ###
 
-variable in_use_pv
-{
+variable in_use_pv {
     description = "Override default and get ID of paravirtual rather than the HVM CoreOS AMI."
     default = "false"
 }
@@ -42,8 +39,7 @@ variable in_use_pv
 ### [[local]] attributes for building the CoreOS AMI log. ###
 ### ##################################################### ###
 
-locals
-{
+locals {
     city_plus = "${ element( split( "(", data.aws_region.with.description ), 1 ) }"
     city_name = "${ element( split( ")", local.city_plus ), 0 ) }"
     pre_note  = "The CoreOS AMI ID for ${local.city_name} ${ data.aws_region.with.name } is"
@@ -58,8 +54,7 @@ locals
 ### [[output]] out_ami_id ###
 ### ##################### ###
 
-output out_ami_id
-{
+output out_ami_id {
     description = "EC2 AMI ID for CoreOS in your AWS region and selected virtualization type."
     value       = "${ data.external.ami.result[ var.in_use_pv ? "pv" : "hvm" ] }"
 }
@@ -69,8 +64,7 @@ output out_ami_id
 ### [[output]] out_ami_log ###
 ### ###################### ###
 
-output out_ami_log
-{
+output out_ami_log {
     description = "Log string detailing the region city region name and EC2 CoreOS AMI ID."
     value = "${local.pre_note} ${ data.external.ami.result[ var.in_use_pv ? "pv" : "hvm" ] }."
 }

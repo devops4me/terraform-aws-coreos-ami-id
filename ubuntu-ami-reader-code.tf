@@ -1,18 +1,13 @@
 
-
-
-    data aws_ami ubuntu1604
-    {
+    data aws_ami ubuntu1604 {
         most_recent = true
 
-        filter
-        {
+        filter {
             name   = "name"
             values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"]
         }
 
-        filter
-        {
+        filter {
             name   = "virtualization-type"
             values = [ "hvm" ]
         }
